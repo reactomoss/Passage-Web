@@ -44,11 +44,12 @@ const Play = () => {
   useEffect(() => {
     (async () => {
       if (isLoaded && address) {
+        console.log('[Web] Send Wallet Address to Unity', address)
         // Send wallet connected state.
         sendMessage('GFT', 'WalletConnected', address);
 
         const entryCoinAmount = await getEntryCoinAmount();
-        console.log('entryCoinAmount', entryCoinAmount);
+        console.log('[Web] Send entryCoinAmount to Unity', entryCoinAmount);
         sendMessage('GFT', 'EntryTokensOnConnect', entryCoinAmount);
       }
     })();
