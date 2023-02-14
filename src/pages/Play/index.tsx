@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useWallet } from 'contexts/WalletProvider';
 import { useUnityContext } from 'contexts/UnityProvider';
@@ -70,10 +70,15 @@ const Play = () => {
     ];
   }, [onSyncWallet, onMint]);
 
-  const handleMint = useCallback(() => {
+  const handleMint = useCallback(async () => {
     console.log('handleMint');
-    sendMessage('GFT', 'MintComplete', 1);
-  }, [sendMessage]);
+    if (address) {
+      const entryCoinAmount = await getEntryCoinAmount();
+      sendMessage('GFT', 'MintComplete', entryCoinAmount);
+      await indexer.updateEntryCoinAmount(address, entryCoinAmount - 1);
+      sendMessage('GFT', 'MintComplete', entryCoinAmount - 1);
+    }
+  }, [address, sendMessage, getEntryCoinAmount]);
 
   return (
     <div className="container mx-auto mt-4">
