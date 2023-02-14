@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { useWallet } from 'contexts/WalletProvider';
 import { useUnityContext } from 'contexts/UnityProvider';
